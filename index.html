@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3Academy - Learn Web3 Simplified</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.15);
+        }
+        
+        .badge-new {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .mobile-nav {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none !important;
+            }
+            
+            .mobile-nav {
+                display: flex !important;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .lesson-item {
+            padding: 16px;
+            border-left: 4px solid #3b82f6;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .lesson-item:hover {
+            background: #f0f9ff;
+            transform: translateX(4px);
+        }
+        
+        .lesson-item.completed {
+            border-left-color: #10b981;
+        }
+        
+        .lesson-item.active {
+            background: #dbeafe;
+            border-left-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="gradient-blue text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center font-bold text-blue-600">W3</div>
+                <h1 class="text-2xl font-bold hidden sm:block">Web3Academy</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav hidden md:flex gap-8 items-center">
+                <button onclick="showSection('home')" class="hover:text-blue-100 transition">Home</button>
+                <button onclick="showSection('courses')" class="hover:text-blue-100 transition">Courses</button>
+                <button onclick="showSection('progress')" class="hover:text-blue-100 transition">My Progress</button>
+                <button onclick="showSection('resources')" class="hover:text-blue-100 transition">Resources</button>
+            </div>
+            
+            <!-- Mobile Navigation Button -->
+            <button class="mobile-nav hidden md:hidden" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 px-4 py-2">
+            <button onclick="showSection('home'); toggleMobileMenu()" class="block w-full text-left py-2 hover:text-blue-100">Home</button>
+            <button onclick="showSection('courses'); toggleMobileMenu()" class="block w-full text-left py-2 hover:text-blue-100">Courses</button>
+            <button onclick="showSection('progress'); toggleMobileMenu()" class="block w-full text-left py-2 hover:text-blue-100">My Progress</button>
+            <button onclick="showSection('resources'); toggleMobileMenu()" class="block w-full text-left py-2 hover:text-blue-100">Resources</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Home Section -->
+        <section id="homeSection" class="section-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">Welcome to Web3Academy</h2>
+                    <p class="text-lg text-slate-600 mb-6">Master Web3 from the ground up. Learn blockchain, cryptocurrency, and decentralized technologies with our comprehensive, beginner-friendly courses.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="showSection('courses')" class="gradient-blue text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">Start Learning</button>
+                        <button onclick="showSection('resources')" class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">Learn More</button>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl p-8 h-96 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🚀</div>
+                        <p class="text-slate-600 font-semibold">Your Web3 Journey Starts Here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">15+</div>
+                    <p class="text-slate-600">Comprehensive Courses</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">100+</div>
+                    <p class="text-slate-600">Learning Modules</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">100%</div>
+                    <p class="text-slate-600">Beginner Friendly</p>
+                </div>
+            </div>
+
+            <!-- Featured Courses -->
+            <h3 class="text-2xl font-bold mb-6 text-slate-900">Featured Courses</h3>
+            <div class="course-grid">
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-slate-200 card-hover">
+                    <div class="gradient-blue h-32 flex items-center justify-center">
+                        <div class="text-5xl">🌐</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-slate-900">Web3 Fundamentals</h4>
+                            <span class="badge-new">NEW</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-4">Master the basics of Web3, blockchain, and cryptocurrency</p>
+                        <button onclick="openCourse('web3-intro')" class="text-blue-600 font-semibold hover:text-blue-700">View Course →</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-slate-200 card-hover">
+                    <div class="gradient-blue h-32 flex items-center justify-center">
+                        <div class="text-5xl">⛓️</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold text-slate-900 mb-2">Blockchain Technology</h4>
+                        <p class="text-slate-600 text-sm mb-4">Deep dive into how blockchain networks operate</p>
+                        <button onclick="openCourse('blockchain')" class="text-blue-600 font-semibold hover:text-blue-700">View Course →</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-slate-200 card-hover">
+                    <div class="gradient-blue h-32 flex items-center justify-center">
+                        <div class="text-5xl">💰</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold text-slate-900 mb-2">Cryptocurrency Basics</h4>
+                        <p class="text-slate-600 text-sm mb-4">Understanding digital currencies and tokens</p>
+                        <button onclick="openCourse('cryptocurrency')" class="text-blue-600 font-semibold hover:text-blue-700">View Course →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="coursesSection" class="section-content hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-slate-900">All Courses</h2>
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <input type="text" id="searchInput" placeholder="Search courses..." class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    <select id="categoryFilter" class="px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <option value="">All Categories</option>
+                        <option value="fundamentals">Fundamentals</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="cryptocurrency">Cryptocurrency</option>
+                        <option value="networks">Networks</option>
+                        <option value="nontechnical">Non-Technical</option>
+                        <option value="technical">Technical</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="course-grid" id="coursesList"></div>
+        </section>
+
+        <!-- Course Details Section -->
+        <section id="courseDetailSection" class="section-content hidden">
+            <button onclick="showSection('courses')" class="mb-6 text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-2">
+                ← Back to Courses
+            </button>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-8">
+                <div class="mb-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div id="courseIconDetail" class="text-5xl"></div>
+                        <div>
+                            <h2 id="courseTitle" class="text-3xl font-bold text-slate-900"></h2>
+                            <p id="courseLevel" class="text-slate-600 mt-1"></p>
+                        </div>
+                    </div>
+                    <p id="courseDescription" class="text-slate-600 text-lg mb-6"></p>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-slate-900">Your Progress</span>
+                            <span id="progressPercent" class="text-blue-600 font-bold">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Course Lessons</h3>
+                        <div id="lessonsList"></div>
+                    </div>
+
+                    <div>
+                        <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                            <h4 class="font-bold text-slate-900 mb-4">Course Overview</h4>
+                            <div class="space-y-3 text-sm text-slate-600">
+                                <div>
+                                    <div class="font-semibold text-slate-900">Duration</div>
+                                    <div id="courseDuration">4 weeks</div>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-900">Lessons</div>
+                                    <div id="courseModules">8 modules</div>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-900">Difficulty</div>
+                                    <div id="courseDiff">Beginner</div>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-900">Certificate</div>
+                                    <div>Yes, upon completion</div>
+                                </div>
+                            </div>
+                            <button onclick="completeCourse()" class="w-full mt-6 gradient-blue text-white py-2 rounded-lg font-semibold hover:shadow-lg transition">Mark as Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progressSection" class="section-content hidden">
+            <h2 class="text-3xl font-bold mb-8 text-slate-900">Your Learning Progress</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-sm text-slate-600 mb-2">Overall Progress</div>
+                    <div class="text-4xl font-bold text-blue-600 mb-4" id="overallProgress">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overallProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-sm text-slate-600 mb-2">Courses Completed</div>
+                    <div class="text-4xl font-bold text-blue-600 mb-4" id="completedCount">0</div>
+                    <p class="text-slate-600">out of <span id="totalCourses">15</span> courses</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Course Status</h3>
+            <div id="progressList" class="space-y-4"></div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resourcesSection" class="section-content hidden">
+            <h2 class="text-3xl font-bold mb-8 text-slate-900">Learning Resources</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Glossary</h3>
+                    <p class="text-slate-600 mb-4">Essential Web3 terminology and definitions</p>
+                    <button onclick="openGlossary()" class="text-blue-600 font-semibold hover:text-blue-700">Explore →</button>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-4xl mb-4">🔗</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">External Links</h3>
+                    <p class="text-slate-600 mb-4">Curated resources for deeper learning</p>
+                    <button onclick="openLinks()" class="text-blue-600 font-semibold hover:text-blue-700">View Links →</button>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-4xl mb-4">📖</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Whitepapers</h3>
+                    <p class="text-slate-600 mb-4">Original Bitcoin, Ethereum, and other whitepapers</p>
+                    <button onclick="openWhitepapers()" class="text-blue-600 font-semibold hover:text-blue-700">Read →</button>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Tools & Wallets</h3>
+                    <p class="text-slate-600 mb-4">Recommended tools for Web3 interaction</p>
+                    <button onclick="openTools()" class="text-blue-600 font-semibold hover:text-blue-700">Explore →</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold">W3</div>
+                        <h3 class="font-bold">Web3Academy</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Making Web3 accessible to everyone</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition">Twitter</a>
+                        <a href="#" class="text-slate-400 hover:text-white transition">Discord</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
+                <p>&copy; 2024 Web3Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
